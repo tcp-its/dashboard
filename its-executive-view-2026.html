@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ITS Project Status 2026 — TCP Pharmachem</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    /* ══════════ TOKENS ══════════ */
+    :root {
+      --bg:         #F8FAFC;
+      --card:       #FFFFFF;
+      --border:     #E2E8F0;
+      --borderm:    #CBD5E1;
+      --text:       #0F172A;
+      --text2:      #64748B;
+      --text3:      #94A3B8;
+      --red:        #CC1E1E;
+      --redd:       #991515;
+      --redl:       #FEF2F2;
+      --step-bg:    #EFF6FF;
+      --step-col:   #1E40AF;
+      --done-bg:    #DCFCE7;
+      --done-col:   #166534;
+      --done-step:  #F0FDF4;
+      --pend-bg:    #F1F5F9;
+      --pend-col:   #64748B;
+      --radius:     10px;
+    }
+
+    /* ══════════ RESET ══════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ══════════ HEADER ══════════ */
+    .site-header {
+      background: var(--red);
+      padding: 20px 32px 16px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .hdr-inner { max-width: 1100px; margin: 0 auto; }
+    .hdr-top { display: flex; align-items: center; gap: 14px; }
+    .hdr-logo {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; font-style: italic; color: #fff;
+      flex-shrink: 0;
+    }
+    .hdr-title { font-size: 18px; font-weight: 600; color: #fff; line-height: 1.2; }
+    .hdr-sub { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 2px; }
+    .hdr-meta {
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.22);
+      display: flex; gap: 20px; flex-wrap: wrap;
+      font-size: 11px; color: rgba(255,255,255,0.85);
+    }
+    .hdr-meta span { display: flex; align-items: center; gap: 5px; }
+    .hdr-meta i { font-size: 14px; }
+
+    /* ══════════ LAYOUT ══════════ */
+    .main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+    /* ══════════ SUMMARY STATS ══════════ */
+    .sum-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+    .sum-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 16px; text-align: center;
+      border-top: 3px solid var(--red);
+    }
+    .sum-num { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; }
+    .sum-lbl { font-size: 11px; color: var(--text2); margin-top: 4px; }
+    .sum-card.s-done .sum-num { color: #059669; }
+    .sum-card.s-active .sum-num { color: #2563EB; }
+    .sum-card.s-pending .sum-num { color: var(--text3); }
+
+    /* ══════════ OWNER SECTION ══════════ */
+    .owner-section { margin-bottom: 28px; }
+    .owner-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .owner-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    }
+    .av-red    { background: var(--redl); color: var(--red); }
+    .av-blue   { background: #EFF6FF; color: #2563EB; }
+    .av-collab { background: #FEF3C7; color: #92400E; }
+    .owner-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .owner-role { font-size: 11px; color: var(--text2); margin-top: 1px; }
+    .owner-count {
+      margin-left: auto; font-size: 11px; color: var(--text2);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 12px;
+    }
+
+    /* ══════════ PROJECT CARDS GRID ══════════ */
+    .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ══════════ PROJECT CARD ══════════ */
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--cc, #CC1E1E);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+
+    /* Card Top */
+    .card-top { padding: 12px 14px 10px; }
+    .card-row1 { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+    .card-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .card-cat { font-size: 11px; color: var(--text3); display: flex; align-items: center; gap: 4px; }
+    .card-cat i { font-size: 13px; }
+
+    /* Status Badge */
+    .sbadge { font-size: 10px; padding: 3px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; font-weight: 600; }
+    .sb-done { background: var(--done-bg); color: var(--done-col); }
+    .sb-active { background: #DBEAFE; color: #1E40AF; }
+    .sb-pending { background: var(--pend-bg); color: var(--pend-col); border: 1px solid var(--border); }
+
+    /* Progress */
+    .card-progress { padding: 8px 14px 10px; }
+    .prog-row { display: flex; align-items: center; gap: 10px; }
+    .prog-pct { font-size: 24px; font-weight: 600; color: var(--text); min-width: 52px; }
+    .prog-track { flex: 1; height: 9px; background: var(--bg); border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
+    .prog-fill { height: 100%; border-radius: 5px; background: var(--cc, #CC1E1E); }
+
+    /* Steps */
+    .card-steps { border-top: 1px solid var(--border); flex: 1; }
+    .step-row { padding: 9px 14px; }
+    .step-row.step-now { background: transparent; }
+    .step-row.step-nxt { background: var(--step-bg); border-top: 1px solid #BFDBFE; }
+    .step-row.step-nxt-done { background: var(--done-step); border-top: 1px solid #BBF7D0; }
+    .step-label {
+      font-size: 10px; color: var(--text3); margin-bottom: 2px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .step-label i { font-size: 12px; }
+    .step-label.next-lbl { color: var(--step-col); font-weight: 600; }
+    .step-label.done-lbl { color: var(--done-col); font-weight: 600; }
+    .nxt-date {
+      margin-left: auto; font-size: 10px; padding: 1px 7px;
+      border-radius: 8px; background: var(--cc, #CC1E1E); color: #fff;
+      font-weight: 600; white-space: nowrap;
+    }
+    .step-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+    /* Card Footer */
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding: 7px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg);
+    }
+    .footer-lbl { font-size: 10px; color: var(--text2); display: flex; align-items: center; gap: 4px; }
+    .footer-lbl i { font-size: 13px; }
+    .footer-val { font-size: 13px; font-weight: 600; color: var(--text); }
+    .footer-val.val-done { color: #059669; }
+    .footer-period { font-size: 10px; color: var(--text3); }
+
+    /* ══════════ SITE FOOTER ══════════ */
+    .site-footer {
+      text-align: center; padding: 20px;
+      font-size: 11px; color: var(--text3);
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+    }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width: 700px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .sum-grid { grid-template-columns: repeat(2, 1fr); }
+      .site-header { padding: 14px 16px 12px; }
+      .main { padding: 16px 12px 40px; }
+    }
+
+    /* ══════════ PRINT ══════════ */
+    @media print {
+      .site-header { position: static; }
+      .proj-card { break-inside: avoid; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     DATA — แก้ไขข้อมูลโครงการที่นี่
+════════════════════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+  updated:   '22 ก.ค. 2569',
+  recipient: 'ณิศรา เชื้อหงษ์ทอง · หัวหน้าฝ่าย FIT',
+};
+
+const OWNERS = [
+  { key: 'apinun',  nick: 'บอล',  name: 'อภินันท์ แรมไธสง',      role: 'หัวหน้า ITS',        avatarClass: 'av-red'    },
+  { key: 'pawapat', nick: 'ฟาน',  name: 'ภวพัฒน์ เยี่ยมปิยวัฒน์', role: 'IT Staff',            avatarClass: 'av-blue'   },
+  { key: 'collab',  nick: 'ร่วม', name: 'ITS × Business',          role: 'โปรเจคร่วมหน่วยงาน', avatarClass: 'av-collab' },
+];
+
+/* status: 'active' | 'done' | 'pending'
+   สำหรับ done — nextStep และ nextDate ให้ว่างเว้น */
+const PROJECTS = [
+  {
+    owner:       'apinun',
+    name:        'Project Clean Slate',
+    color:       '#059669',
+    category:    'Infrastructure',
+    icon:        'ti-server',
+    progress:    60,
+    status:      'active',
+    currentStep: 'จัดเก็บข้อมูลร่วมกับ 5 แผนก',
+    nextStep:    'ลดพื้นที่จัดเก็บให้ต่ำกว่า 70%',
+    nextDate:    'ส.ค. 2569',
+    targetDate:  'ต.ค. 2569',
+    period:      'มิ.ย.–ต.ค.',
+  },
+  {
+    owner:       'apinun',
+    name:        'TCP Smart IT Desk',
+    color:       '#3B82F6',
+    category:    'IT System Development',
+    icon:        'ti-headset',
+    progress:    88,
+    status:      'active',
+    currentStep: 'ทดสอบระบบกับทีม IT (UAT)',
+    nextStep:    'นำเสนอผู้บริหาร → เปิดใช้งานจริง',
+    nextDate:    'ก.ค.–ส.ค. 2569',
+    targetDate:  'ส.ค. 2569',
+    period:      'พ.ค.–ส.ค.',
+  },
+  {
+    owner:       'apinun',
+    name:        'Renovate Head Office',
+    color:       '#8B5CF6',
+    category:    'Infrastructure',
+    icon:        'ti-building',
+    progress:    35,
+    status:      'active',
+    currentStep: 'ติดตั้ง Rack + ประสานงาน ISP (AIS/3BB)',
+    nextStep:    'วาง LAN · ย้ายอุปกรณ์ Server ไปอาคารใหม่',
+    nextDate:    'ก.ค.–ส.ค. 2569',
+    targetDate:  'ส.ค. 2569',
+    period:      'พ.ค.–ส.ค.',
+  },
+  {
+    owner:       'collab',
+    name:        'TCP AI Transformation',
+    color:       '#F59E0B',
+    category:    'Innovation',
+    icon:        'ti-brain',
+    progress:    10,
+    status:      'active',
+    currentStep: 'วางแผนโครงการร่วมกับทีม Business',
+    nextStep:    'กำหนด Scope · Timeline · แผนการดำเนินงาน',
+    nextDate:    'ส.ค. 2569',
+    targetDate:  'ธ.ค. 2569',
+    period:      'ก.ค.–ธ.ค.',
+  },
+  {
+    owner:       'apinun',
+    name:        'Internal Company Portal',
+    color:       '#06B6D4',
+    category:    'Web Development',
+    icon:        'ti-world',
+    progress:    100,
+    status:      'done',
+    currentStep: 'เปิดใช้งานจริงเรียบร้อยแล้ว ใช้งานต่อเนื่องตั้งแต่ พ.ค. 2569',
+    nextStep:    '',
+    nextDate:    '',
+    targetDate:  'พ.ค. 2569',
+    period:      'เม.ย.–พ.ค.',
+  },
+  {
+    owner:       'apinun',
+    name:        'TCP KPI-ITS Dashboard',
+    color:       '#DC2626',
+    category:    'Application',
+    icon:        'ti-chart-bar',
+    progress:    65,
+    status:      'active',
+    currentStep: 'พัฒนา KPI-04 IT Helpdesk',
+    nextStep:    'ต่อ KPI-05, KPI-06 → Deploy บน GitHub Pages',
+    nextDate:    'ส.ค.–ก.ย. 2569',
+    targetDate:  'ธ.ค. 2569',
+    period:      'มิ.ย.–ธ.ค.',
+  },
+  {
+    owner:       'pawapat',
+    name:        'TCP IT Resource Tracker',
+    color:       '#6366F1',
+    category:    'Application',
+    icon:        'ti-device-laptop',
+    progress:    55,
+    status:      'active',
+    currentStep: 'กำลังพัฒนาระบบ',
+    nextStep:    'ทดสอบ UAT → เปิดใช้งาน ส.ค. 2569',
+    nextDate:    'ก.ค.–ส.ค. 2569',
+    targetDate:  'ส.ค. 2569',
+    period:      'มิ.ย.–ส.ค.',
+  },
+];
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     HTML STRUCTURE
+════════════════════════════════════════════════════════════ -->
+
+<header class="site-header">
+  <div class="hdr-inner">
+    <div class="hdr-top">
+      <div class="hdr-logo">TCP</div>
+      <div>
+        <div class="hdr-title">ITS Department — สถานะโครงการ ปี 2569</div>
+        <div class="hdr-sub" id="hdr-recipient"></div>
+      </div>
+    </div>
+    <div class="hdr-meta">
+      <span><i class="ti ti-calendar"></i> <span id="hdr-date"></span></span>
+      <span><i class="ti ti-folder"></i> <span id="hdr-total"></span> โครงการ</span>
+      <span><i class="ti ti-users"></i> อภินันท์ · ภวพัฒน์</span>
+      <span style="margin-left:auto;"><i class="ti ti-info-circle"></i> อัปเดตได้โดยแก้ไขข้อมูลใน &lt;script&gt; ด้านบน</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="sum-grid" id="summary"></div>
+  <div id="projects"></div>
+</main>
+
+<footer class="site-footer">
+  TCP Pharmachem · ITS Department · อัปเดตล่าสุด: <span id="footer-date"></span>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     RENDER SCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+
+  /* ── helpers ── */
+  function statusLabel(s) {
+    if (s === 'done')    return 'เสร็จแล้ว ✓';
+    if (s === 'active')  return 'กำลังดำเนินการ';
+    if (s === 'pending') return 'รอเริ่ม';
+    return s;
+  }
+  function statusClass(s) {
+    if (s === 'done')    return 'sb-done';
+    if (s === 'active')  return 'sb-active';
+    return 'sb-pending';
+  }
+
+  /* ── render single card ── */
+  function renderCard(p) {
+    const isDone    = p.status === 'done';
+    const isPending = p.status === 'pending';
+
+    const nextRowClass = isDone ? 'step-nxt-done' : 'step-nxt';
+    const nextIcon     = isDone ? 'ti-check'       : 'ti-arrow-right';
+    const nextLblClass = isDone ? 'done-lbl'        : 'next-lbl';
+
+    const nextRowHTML = (!isDone && p.nextStep) ? `
+      <div class="step-row ${nextRowClass}">
+        <div class="step-label next-lbl ${nextLblClass}">
+          <i class="ti ${nextIcon}"></i>
+          ถัดไป
+          ${p.nextDate ? `<span class="nxt-date" style="background:${p.color}">${p.nextDate}</span>` : ''}
+        </div>
+        <div class="step-text">${p.nextStep}</div>
+      </div>` : isDone ? `
+      <div class="step-row ${nextRowClass}">
+        <div class="step-label done-lbl">
+          <i class="ti ti-check"></i>
+          ใช้งานต่อเนื่อง
+        </div>
+        <div class="step-text">${p.nextStep || 'ตั้งแต่ ' + p.targetDate + ' ถึงปัจจุบัน'}</div>
+      </div>` : '';
+
+    const footerValClass = isDone ? 'footer-val val-done' : 'footer-val';
+    const footerLabel    = isDone ? 'เสร็จสิ้นเมื่อ' : 'กำหนดแล้วเสร็จ';
+
+    return `
+    <div class="proj-card" style="--cc:${p.color}">
+      <div class="card-top">
+        <div class="card-row1">
+          <div class="card-name">${p.name}</div>
+          <div class="sbadge ${statusClass(p.status)}">${statusLabel(p.status)}</div>
+        </div>
+        <div class="card-cat"><i class="ti ${p.icon}"></i>${p.category}</div>
+      </div>
+
+      <div class="card-progress">
+        <div class="prog-row">
+          <div class="prog-pct">${p.progress}%</div>
+          <div class="prog-track">
+            <div class="prog-fill" style="width:${p.progress}%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-steps">
+        <div class="step-row step-now">
+          <div class="step-label">
+            <i class="ti ${isDone ? 'ti-circle-check' : 'ti-point-filled'}"></i>
+            ${isDone ? 'ผลลัพธ์' : 'ขั้นตอนปัจจุบัน'}
+          </div>
+          <div class="step-text">${p.currentStep}</div>
+        </div>
+        ${nextRowHTML}
+      </div>
+
+      <div class="card-footer">
+        <div class="footer-lbl"><i class="ti ti-calendar-check"></i>${footerLabel}</div>
+        <div>
+          <div class="${footerValClass}">${p.targetDate}</div>
+          <div class="footer-period">${p.period}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  /* ── render owner section ── */
+  function renderOwnerSection(owner) {
+    const projects = PROJECTS.filter(p => p.owner === owner.key);
+    if (!projects.length) return '';
+
+    const cards = projects.map(renderCard).join('');
+
+    return `
+    <div class="owner-section">
+      <div class="owner-header">
+        <div class="owner-avatar ${owner.avatarClass}">${owner.nick}</div>
+        <div>
+          <div class="owner-name">${owner.name}</div>
+          <div class="owner-role">${owner.role}</div>
+        </div>
+        <div class="owner-count">${projects.length} โครงการ</div>
+      </div>
+      <div class="cards-grid">${cards}</div>
+    </div>`;
+  }
+
+  /* ── render summary stats ── */
+  function renderSummary() {
+    const total   = PROJECTS.length;
+    const done    = PROJECTS.filter(p => p.status === 'done').length;
+    const active  = PROJECTS.filter(p => p.status === 'active').length;
+    const pending = PROJECTS.filter(p => p.status === 'pending').length;
+
+    const avgProgress = Math.round(PROJECTS.reduce((s, p) => s + p.progress, 0) / total);
+
+    return `
+      <div class="sum-card">
+        <div class="sum-num">${total}</div><div class="sum-lbl">โครงการทั้งหมด</div>
+      </div>
+      <div class="sum-card s-done">
+        <div class="sum-num">${done}</div><div class="sum-lbl">เสร็จแล้ว</div>
+      </div>
+      <div class="sum-card s-active">
+        <div class="sum-num">${active}</div><div class="sum-lbl">กำลังดำเนินการ</div>
+      </div>
+      <div class="sum-card s-pending">
+        <div class="sum-num">${avgProgress}%</div><div class="sum-lbl">ภาพรวมความคืบหน้า</div>
+      </div>`;
+  }
+
+  /* ── init ── */
+  function init() {
+    /* header */
+    document.getElementById('hdr-recipient').textContent = 'รายงานสำหรับ ' + CONFIG.recipient;
+    document.getElementById('hdr-date').textContent = 'อัปเดต: ' + CONFIG.updated;
+    document.getElementById('hdr-total').textContent = PROJECTS.length;
+    document.getElementById('footer-date').textContent = CONFIG.updated;
+
+    /* summary */
+    document.getElementById('summary').innerHTML = renderSummary();
+
+    /* owner sections */
+    const html = OWNERS.map(renderOwnerSection).join('');
+    document.getElementById('projects').innerHTML = html;
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+
+</body>
+</html>
