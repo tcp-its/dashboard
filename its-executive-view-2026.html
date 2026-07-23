@@ -1,503 +1,522 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ITS Project Status 2026 — TCP Pharmachem</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITS Executive View 2026 — TCP Pharmachem</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
-    /* ══════════ TOKENS ══════════ */
-    :root {
-      --bg:         #F8FAFC;
-      --card:       #FFFFFF;
-      --border:     #E2E8F0;
-      --borderm:    #CBD5E1;
-      --text:       #0F172A;
-      --text2:      #64748B;
-      --text3:      #94A3B8;
-      --red:        #CC1E1E;
-      --redd:       #991515;
-      --redl:       #FEF2F2;
-      --step-bg:    #EFF6FF;
-      --step-col:   #1E40AF;
-      --done-bg:    #DCFCE7;
-      --done-col:   #166534;
-      --done-step:  #F0FDF4;
-      --pend-bg:    #F1F5F9;
-      --pend-col:   #64748B;
-      --radius:     10px;
-    }
-
-    /* ══════════ RESET ══════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a1a;
       min-height: 100vh;
+      padding: 1.5rem 1rem;
+    }
+    .container { max-width: 980px; margin: 0 auto; }
+
+    /* Header */
+    .ev-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+    .ev-logo {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #cc1e1e; display: flex; align-items: center;
+      justify-content: center; color: #fff; font-size: 11px;
+      font-weight: 700; flex-shrink: 0; letter-spacing: .5px;
+    }
+    .ev-title { font-size: 20px; font-weight: 700; color: #111; }
+    .ev-sub { font-size: 13px; color: #6b7280; margin-top: 2px; }
+    .ev-date {
+      margin-left: auto; font-size: 12px; color: #9ca3af;
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 6px; padding: 4px 12px; white-space: nowrap;
     }
 
-    /* ══════════ HEADER ══════════ */
-    .site-header {
-      background: var(--red);
-      padding: 20px 32px 16px;
-      position: sticky; top: 0; z-index: 100;
+    /* Section label */
+    .section-label {
+      font-size: 13px; font-weight: 600; color: #6b7280;
+      margin-bottom: .75rem; display: flex; align-items: center; gap: 6px;
     }
-    .hdr-inner { max-width: 1100px; margin: 0 auto; }
-    .hdr-top { display: flex; align-items: center; gap: 14px; }
-    .hdr-logo {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; font-style: italic; color: #fff;
-      flex-shrink: 0;
-    }
-    .hdr-title { font-size: 18px; font-weight: 600; color: #fff; line-height: 1.2; }
-    .hdr-sub { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 2px; }
-    .hdr-meta {
-      margin-top: 10px; padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.22);
-      display: flex; gap: 20px; flex-wrap: wrap;
-      font-size: 11px; color: rgba(255,255,255,0.85);
-    }
-    .hdr-meta span { display: flex; align-items: center; gap: 5px; }
-    .hdr-meta i { font-size: 14px; }
+    .section-label i { font-size: 15px; }
 
-    /* ══════════ LAYOUT ══════════ */
-    .main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
-
-    /* ══════════ SUMMARY STATS ══════════ */
-    .sum-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
-    .sum-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 14px 16px; text-align: center;
-      border-top: 3px solid var(--red);
+    /* Gantt */
+    .gantt-section {
+      background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;
     }
-    .sum-num { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; }
-    .sum-lbl { font-size: 11px; color: var(--text2); margin-top: 4px; }
-    .sum-card.s-done .sum-num { color: #059669; }
-    .sum-card.s-active .sum-num { color: #2563EB; }
-    .sum-card.s-pending .sum-num { color: var(--text3); }
-
-    /* ══════════ OWNER SECTION ══════════ */
-    .owner-section { margin-bottom: 28px; }
-    .owner-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 12px; padding-bottom: 8px;
-      border-bottom: 2px solid var(--border);
+    .gantt-months {
+      display: flex; margin-left: 185px; margin-bottom: 4px;
+      border-bottom: 1px solid #f3f4f6; padding-bottom: 5px;
     }
-    .owner-avatar {
-      width: 34px; height: 34px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    .gantt-month { flex: 1; font-size: 10px; color: #9ca3af; text-align: center; }
+    .gantt-row { display: flex; align-items: center; height: 32px; }
+    .gantt-name {
+      width: 185px; flex-shrink: 0; font-size: 11px; color: #4b5563;
+      padding-right: 10px; display: flex; align-items: center; gap: 5px;
+      overflow: hidden; border-bottom: 1px solid #f3f4f6; height: 100%;
     }
-    .av-red    { background: var(--redl); color: var(--red); }
-    .av-blue   { background: #EFF6FF; color: #2563EB; }
-    .av-collab { background: #FEF3C7; color: #92400E; }
-    .owner-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .owner-role { font-size: 11px; color: var(--text2); margin-top: 1px; }
-    .owner-count {
-      margin-left: auto; font-size: 11px; color: var(--text2);
-      background: var(--bg); border: 1px solid var(--border);
-      padding: 3px 10px; border-radius: 12px;
+    .gantt-name-icon { font-size: 13px; flex-shrink: 0; }
+    .gantt-name-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .gantt-track { flex: 1; position: relative; height: 22px; border-bottom: 1px solid #f3f4f6; }
+    .gantt-vline { position: absolute; top: 0; bottom: 0; width: 1px; background: #f3f4f6; }
+    .gantt-bar {
+      position: absolute; height: 22px; border-radius: 4px; top: 0;
+      display: flex; align-items: center; overflow: hidden; min-width: 4px;
+    }
+    .gantt-bar-done { opacity: 0.38; }
+    .gantt-success-tag {
+      font-size: 9px; font-weight: 700; color: #fff;
+      background: rgba(0,0,0,.22); padding: 1px 6px;
+      border-radius: 2px; white-space: nowrap; margin-left: 6px;
+    }
+    .gantt-today { position: absolute; top: -10px; bottom: 0; width: 2px; background: #cc1e1e; z-index: 10; }
+    .gantt-today::before {
+      content: '▼'; color: #cc1e1e; font-size: 7px;
+      position: absolute; top: -9px; left: -3.5px;
+    }
+    .gantt-tbd { position: absolute; left: 50%; transform: translateX(-50%); font-size: 10px; color: #9ca3af; top: 4px; }
+    .gantt-legend {
+      display: flex; align-items: center; gap: 18px;
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid #f3f4f6;
+    }
+    .gantt-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6b7280; }
+    .legend-today-line { width: 2px; height: 14px; background: #cc1e1e; border-radius: 1px; }
+    .legend-bar-done {
+      width: 28px; height: 10px; border-radius: 3px;
+      background: #6b7280; opacity: 0.38;
     }
 
-    /* ══════════ PROJECT CARDS GRID ══════════ */
-    .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    /* ══════════ PROJECT CARD ══════════ */
+    /* Project cards */
+    .section-group-label {
+      font-size: 11px; font-weight: 600; color: #9ca3af;
+      padding: 4px 10px; background: #f9fafb;
+      border: 1px solid #e5e7eb; border-radius: 6px;
+      margin-bottom: .5rem; margin-top: .75rem; display: inline-block;
+    }
     .proj-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--cc, #CC1E1E);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex; flex-direction: column;
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      margin-bottom: .75rem; overflow: hidden; background: #fff;
+    }
+    .proj-hdr {
+      display: flex; align-items: center; gap: 8px;
+      padding: .7rem 1rem; background: #fff;
+      border-left: 4px solid transparent;
+    }
+    .proj-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .proj-icon { font-size: 16px; flex-shrink: 0; }
+    .proj-name { font-size: 13px; font-weight: 700; color: #111; flex: 1; }
+    .proj-progress { display: flex; align-items: center; gap: 6px; }
+    .prog-bar-wrap { width: 60px; height: 4px; background: #f3f4f6; border-radius: 2px; overflow: hidden; }
+    .prog-bar-fill { height: 4px; border-radius: 2px; transition: width .3s; }
+    .prog-text { font-size: 11px; color: #9ca3af; white-space: nowrap; }
+    .proj-owner { font-size: 11px; color: #9ca3af; margin-left: 6px; white-space: nowrap; }
+
+    /* Milestone group */
+    .ms-group { border-top: 1px solid #f3f4f6; }
+    .done-toggle {
+      display: flex; align-items: center; gap: 8px;
+      padding: .45rem 1rem; cursor: pointer;
+      background: #f9fafb; font-size: 12px; color: #6b7280;
+      user-select: none; border-bottom: 1px solid #f3f4f6;
+      transition: background .15s;
+    }
+    .done-toggle:hover { background: #f3f4f6; }
+    .done-toggle-text { flex: 1; }
+    .done-chevron { font-size: 13px; color: #9ca3af; transition: transform .2s; }
+    .done-chevron.open { transform: rotate(180deg); }
+    .done-ms-list { display: none; }
+    .done-ms-list.open { display: block; }
+
+    .ms-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: .48rem 1rem; border-bottom: 1px solid #f9fafb;
+      font-size: 12px;
+    }
+    .ms-row:last-child { border-bottom: none; }
+    .ms-row.done-row { background: #fafafa; }
+    .ms-num { width: 20px; text-align: center; font-size: 11px; color: #9ca3af; flex-shrink: 0; }
+    .ms-name { flex: 1; color: #374151; line-height: 1.4; }
+    .ms-name.done-name { color: #9ca3af; }
+    .ms-date { font-size: 11px; color: #9ca3af; white-space: nowrap; margin-right: 4px; }
+    .badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
+    .b-active { background: #dbeafe; color: #1e40af; }
+    .b-wait   { background: #f1f5f9; color: #475569; }
+    .b-done   { background: #dcfce7; color: #166534; }
+
+    .no-ms { padding: .75rem 1rem; font-size: 12px; color: #9ca3af; font-style: italic; border-top: 1px solid #f3f4f6; }
+    .all-done-note {
+      padding: .5rem 1rem; font-size: 12px; color: #16a34a;
+      background: #f0fdf4; border-top: 1px solid #dcfce7;
+    }
+    .footer {
+      text-align: center; font-size: 11px; color: #d1d5db;
+      padding: 1.25rem 0 .5rem; margin-top: .5rem;
     }
 
-    /* Card Top */
-    .card-top { padding: 12px 14px 10px; }
-    .card-row1 { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
-    .card-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
-    .card-cat { font-size: 11px; color: var(--text3); display: flex; align-items: center; gap: 4px; }
-    .card-cat i { font-size: 13px; }
-
-    /* Status Badge */
-    .sbadge { font-size: 10px; padding: 3px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; font-weight: 600; }
-    .sb-done { background: var(--done-bg); color: var(--done-col); }
-    .sb-active { background: #DBEAFE; color: #1E40AF; }
-    .sb-pending { background: var(--pend-bg); color: var(--pend-col); border: 1px solid var(--border); }
-
-    /* Progress */
-    .card-progress { padding: 8px 14px 10px; }
-    .prog-row { display: flex; align-items: center; gap: 10px; }
-    .prog-pct { font-size: 24px; font-weight: 600; color: var(--text); min-width: 52px; }
-    .prog-track { flex: 1; height: 9px; background: var(--bg); border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
-    .prog-fill { height: 100%; border-radius: 5px; background: var(--cc, #CC1E1E); }
-
-    /* Steps */
-    .card-steps { border-top: 1px solid var(--border); flex: 1; }
-    .step-row { padding: 9px 14px; }
-    .step-row.step-now { background: transparent; }
-    .step-row.step-nxt { background: var(--step-bg); border-top: 1px solid #BFDBFE; }
-    .step-row.step-nxt-done { background: var(--done-step); border-top: 1px solid #BBF7D0; }
-    .step-label {
-      font-size: 10px; color: var(--text3); margin-bottom: 2px;
-      display: flex; align-items: center; gap: 4px;
+    @media (max-width: 600px) {
+      .gantt-months { margin-left: 110px; }
+      .gantt-name { width: 110px; }
+      .ev-date { display: none; }
     }
-    .step-label i { font-size: 12px; }
-    .step-label.next-lbl { color: var(--step-col); font-weight: 600; }
-    .step-label.done-lbl { color: var(--done-col); font-weight: 600; }
-    .nxt-date {
-      margin-left: auto; font-size: 10px; padding: 1px 7px;
-      border-radius: 8px; background: var(--cc, #CC1E1E); color: #fff;
-      font-weight: 600; white-space: nowrap;
-    }
-    .step-text { font-size: 12px; color: var(--text); line-height: 1.5; }
-
-    /* Card Footer */
-    .card-footer {
-      border-top: 1px solid var(--border);
-      padding: 7px 14px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--bg);
-    }
-    .footer-lbl { font-size: 10px; color: var(--text2); display: flex; align-items: center; gap: 4px; }
-    .footer-lbl i { font-size: 13px; }
-    .footer-val { font-size: 13px; font-weight: 600; color: var(--text); }
-    .footer-val.val-done { color: #059669; }
-    .footer-period { font-size: 10px; color: var(--text3); }
-
-    /* ══════════ SITE FOOTER ══════════ */
-    .site-footer {
-      text-align: center; padding: 20px;
-      font-size: 11px; color: var(--text3);
-      border-top: 1px solid var(--border);
-      margin-top: 16px;
-    }
-
-    /* ══════════ RESPONSIVE ══════════ */
-    @media (max-width: 700px) {
-      .cards-grid { grid-template-columns: 1fr; }
-      .sum-grid { grid-template-columns: repeat(2, 1fr); }
-      .site-header { padding: 14px 16px 12px; }
-      .main { padding: 16px 12px 40px; }
-    }
-
-    /* ══════════ PRINT ══════════ */
-    @media print {
-      .site-header { position: static; }
-      .proj-card { break-inside: avoid; }
-      body { background: #fff; }
-    }
+    @media print { body { background: #fff; padding: 0; } }
   </style>
 </head>
 <body>
+<div class="container">
 
-<!-- ═══════════════════════════════════════════════════════
-     DATA — แก้ไขข้อมูลโครงการที่นี่
-════════════════════════════════════════════════════════════ -->
-<script>
-const CONFIG = {
-  updated:   '22 ก.ค. 2569',
-  recipient: 'ณิศรา เชื้อหงษ์ทอง · หัวหน้าฝ่าย FIT',
-};
-
-const OWNERS = [
-  { key: 'apinun',  nick: 'บอล',  name: 'อภินันท์ แรมไธสง',      role: 'หัวหน้า ITS',        avatarClass: 'av-red'    },
-  { key: 'pawapat', nick: 'ฟาน',  name: 'ภวพัฒน์ เยี่ยมปิยวัฒน์', role: 'IT Staff',            avatarClass: 'av-blue'   },
-  { key: 'collab',  nick: 'ร่วม', name: 'ITS × Business',          role: 'โปรเจคร่วมหน่วยงาน', avatarClass: 'av-collab' },
-];
-
-/* status: 'active' | 'done' | 'pending'
-   สำหรับ done — nextStep และ nextDate ให้ว่างเว้น */
-const PROJECTS = [
-  {
-    owner:       'apinun',
-    name:        'Project Clean Slate',
-    color:       '#059669',
-    category:    'Infrastructure',
-    icon:        'ti-server',
-    progress:    60,
-    status:      'active',
-    currentStep: 'จัดเก็บข้อมูลร่วมกับ 5 แผนก',
-    nextStep:    'ลดพื้นที่จัดเก็บให้ต่ำกว่า 70%',
-    nextDate:    'ส.ค. 2569',
-    targetDate:  'ต.ค. 2569',
-    period:      'มิ.ย.–ต.ค.',
-  },
-  {
-    owner:       'apinun',
-    name:        'TCP Smart IT Desk',
-    color:       '#3B82F6',
-    category:    'IT System Development',
-    icon:        'ti-headset',
-    progress:    88,
-    status:      'active',
-    currentStep: 'ทดสอบระบบกับทีม IT (UAT)',
-    nextStep:    'นำเสนอผู้บริหาร → เปิดใช้งานจริง',
-    nextDate:    'ก.ค.–ส.ค. 2569',
-    targetDate:  'ส.ค. 2569',
-    period:      'พ.ค.–ส.ค.',
-  },
-  {
-    owner:       'apinun',
-    name:        'Renovate Head Office',
-    color:       '#8B5CF6',
-    category:    'Infrastructure',
-    icon:        'ti-building',
-    progress:    35,
-    status:      'active',
-    currentStep: 'ติดตั้ง Rack + ประสานงาน ISP (AIS/3BB)',
-    nextStep:    'วาง LAN · ย้ายอุปกรณ์ Server ไปอาคารใหม่',
-    nextDate:    'ก.ค.–ส.ค. 2569',
-    targetDate:  'ส.ค. 2569',
-    period:      'พ.ค.–ส.ค.',
-  },
-  {
-    owner:       'collab',
-    name:        'TCP AI Transformation',
-    color:       '#F59E0B',
-    category:    'Innovation',
-    icon:        'ti-brain',
-    progress:    10,
-    status:      'active',
-    currentStep: 'วางแผนโครงการร่วมกับทีม Business',
-    nextStep:    'กำหนด Scope · Timeline · แผนการดำเนินงาน',
-    nextDate:    'ส.ค. 2569',
-    targetDate:  'ธ.ค. 2569',
-    period:      'ก.ค.–ธ.ค.',
-  },
-  {
-    owner:       'apinun',
-    name:        'Internal Company Portal',
-    color:       '#06B6D4',
-    category:    'Web Development',
-    icon:        'ti-world',
-    progress:    100,
-    status:      'done',
-    currentStep: 'เปิดใช้งานจริงเรียบร้อยแล้ว ใช้งานต่อเนื่องตั้งแต่ พ.ค. 2569',
-    nextStep:    '',
-    nextDate:    '',
-    targetDate:  'พ.ค. 2569',
-    period:      'เม.ย.–พ.ค.',
-  },
-  {
-    owner:       'apinun',
-    name:        'TCP KPI-ITS Dashboard',
-    color:       '#DC2626',
-    category:    'Application',
-    icon:        'ti-chart-bar',
-    progress:    65,
-    status:      'active',
-    currentStep: 'พัฒนา KPI-04 IT Helpdesk',
-    nextStep:    'ต่อ KPI-05, KPI-06 → Deploy บน GitHub Pages',
-    nextDate:    'ส.ค.–ก.ย. 2569',
-    targetDate:  'ธ.ค. 2569',
-    period:      'มิ.ย.–ธ.ค.',
-  },
-  {
-    owner:       'pawapat',
-    name:        'TCP IT Resource Tracker',
-    color:       '#6366F1',
-    category:    'Application',
-    icon:        'ti-device-laptop',
-    progress:    55,
-    status:      'active',
-    currentStep: 'กำลังพัฒนาระบบ',
-    nextStep:    'ทดสอบ UAT → เปิดใช้งาน ส.ค. 2569',
-    nextDate:    'ก.ค.–ส.ค. 2569',
-    targetDate:  'ส.ค. 2569',
-    period:      'มิ.ย.–ส.ค.',
-  },
-];
-</script>
-
-<!-- ═══════════════════════════════════════════════════════
-     HTML STRUCTURE
-════════════════════════════════════════════════════════════ -->
-
-<header class="site-header">
-  <div class="hdr-inner">
-    <div class="hdr-top">
-      <div class="hdr-logo">TCP</div>
-      <div>
-        <div class="hdr-title">ITS Department — สถานะโครงการ ปี 2569</div>
-        <div class="hdr-sub" id="hdr-recipient"></div>
-      </div>
+  <!-- Header -->
+  <div class="ev-header">
+    <div class="ev-logo">TCP</div>
+    <div>
+      <div class="ev-title">ITS Executive View 2026</div>
+      <div class="ev-sub">TCP Pharmachem &nbsp;·&nbsp; ฝ่าย ITS &nbsp;·&nbsp; สำหรับ นุช หัวหน้า FIT</div>
     </div>
-    <div class="hdr-meta">
-      <span><i class="ti ti-calendar"></i> <span id="hdr-date"></span></span>
-      <span><i class="ti ti-folder"></i> <span id="hdr-total"></span> โครงการ</span>
-      <span><i class="ti ti-users"></i> อภินันท์ · ภวพัฒน์</span>
-      <span style="margin-left:auto;"><i class="ti ti-info-circle"></i> อัปเดตได้โดยแก้ไขข้อมูลใน &lt;script&gt; ด้านบน</span>
+    <div class="ev-date" id="today-badge"></div>
+  </div>
+
+  <!-- Gantt Chart -->
+  <div class="gantt-section">
+    <div class="section-label">
+      <i class="ti ti-calendar" aria-hidden="true"></i>
+      Project Timeline Overview — FY 2026
+    </div>
+    <div class="gantt-months">
+      <span class="gantt-month">ม.ค.</span>
+      <span class="gantt-month">ก.พ.</span>
+      <span class="gantt-month">มี.ค.</span>
+      <span class="gantt-month">เม.ย.</span>
+      <span class="gantt-month">พ.ค.</span>
+      <span class="gantt-month">มิ.ย.</span>
+      <span class="gantt-month">ก.ค.</span>
+      <span class="gantt-month">ส.ค.</span>
+      <span class="gantt-month">ก.ย.</span>
+      <span class="gantt-month">ต.ค.</span>
+      <span class="gantt-month">พ.ย.</span>
+      <span class="gantt-month">ธ.ค.</span>
+    </div>
+    <div id="gantt-rows"></div>
+    <div class="gantt-legend">
+      <div class="gantt-legend-item"><div class="legend-today-line"></div> วันนี้</div>
+      <div class="gantt-legend-item"><div class="legend-bar-done"></div> เสร็จสมบูรณ์</div>
     </div>
   </div>
-</header>
 
-<main class="main">
-  <div class="sum-grid" id="summary"></div>
-  <div id="projects"></div>
-</main>
+  <!-- Project Details -->
+  <div class="section-label">
+    <i class="ti ti-list-check" aria-hidden="true"></i>
+    Project Details &amp; Milestones
+  </div>
+  <div id="proj-cards"></div>
 
-<footer class="site-footer">
-  TCP Pharmachem · ITS Department · อัปเดตล่าสุด: <span id="footer-date"></span>
-</footer>
+  <div class="footer">
+    TCP Pharmachem &nbsp;·&nbsp; ITS Department &nbsp;·&nbsp; <span id="footer-date"></span>
+  </div>
+</div>
 
-<!-- ═══════════════════════════════════════════════════════
-     RENDER SCRIPT
-════════════════════════════════════════════════════════════ -->
 <script>
-(function () {
+const PROJECTS = [
+  {
+    id: 'clean-slate',
+    name: 'Project Clean Slate',
+    ganttName: 'Project Clean Slate',
+    icon: '🧹', color: '#059669', owner: 'บอล',
+    section: 'ITS บอล',
+    barL: 55.07, barW: 13.70, allDone: false,
+    ms: [
+      { n:1, name:'ดำเนินการจัดเก็บข้อมูลร่วมกับ 5 แผนก', date:'20/07', s:'รอเริ่ม' },
+      { n:2, name:'สำรวจและวัดขนาดข้อมูล G:\\Pools ทุกแผนก', date:'10/08', s:'กำลังดำเนินการ' },
+      { n:3, name:'จัดทำประกาศนโยบาย NAS File Server (5 แผนก)', date:'13/08', s:'รอเริ่ม' },
+      { n:4, name:'สร้างเครื่องมือ Measurement Dashboard', date:'20/08', s:'รอเริ่ม' },
+      { n:5, name:'ลด Datastore จาก 88% ให้ต่ำกว่า 70%', date:'20/08', s:'รอเริ่ม' },
+      { n:6, name:'สรุปผลดำเนินการ ปิดโปรเจค', date:'01/09', s:'รอเริ่ม' },
+    ]
+  },
+  {
+    id: 'smart-desk',
+    name: 'TCP Smart IT Desk',
+    ganttName: 'Smart IT Desk (Chat Bot)',
+    icon: '🎫', color: '#2563EB', owner: 'บอล',
+    section: 'ITS บอล',
+    barL: 33.15, barW: 49.59, allDone: false,
+    ms: [
+      { n:1, name:'Project Kickoff — ออกแบบโครงสร้างระบบ', date:'01/05', s:'เสร็จแล้ว' },
+      { n:2, name:'Infrastructure Setup — LINE API + Cloudflare Tunnel', date:'08/05', s:'เสร็จแล้ว' },
+      { n:3, name:'Authentication & Rich Menu — SSO + LINE Menu', date:'15/05', s:'เสร็จแล้ว' },
+      { n:4, name:'Analytics Dashboard + Core SLA Engine', date:'22/05', s:'เสร็จแล้ว' },
+      { n:5, name:'Bug Fix Session — แก้ไขระบบ 7 จุดสำคัญ', date:'01/06', s:'เสร็จแล้ว' },
+      { n:6, name:'UAT — ทดสอบกับฟาน + Update FAQ Knowledge Base', date:'16/06', s:'กำลังดำเนินการ' },
+      { n:7, name:'เปิดใช้งานจริง (Go Live) — พนักงานทั้งบริษัท', date:'01/08', s:'รอเริ่ม' },
+      { n:8, name:'รับ Feedback ปรับปรุงแก้ไข Bug จากพนักงาน', date:'30/09', s:'รอเริ่ม' },
+      { n:9, name:'สรุปผลดำเนินการ ปิดโปรเจค', date:'27/10', s:'รอเริ่ม' },
+    ]
+  },
+  {
+    id: 'renovate',
+    name: 'Renovate Head Office',
+    ganttName: 'Renovate Head Office',
+    icon: '🏢', color: '#7C3AED', owner: 'บอล + ฟาน',
+    section: 'ITS บอล',
+    barL: 41.64, barW: 24.66, allDone: false,
+    ms: [
+      { n:1,  name:'ประสานงาน Supplier — รับใบเสนอราคาย้ายห้อง Server', date:'01/06', s:'เสร็จแล้ว' },
+      { n:2,  name:'ประสานงาน AIS — สำรวจราคาและค่าใช้จ่ายย้าย Router', date:'02/06', s:'เสร็จแล้ว' },
+      { n:3,  name:'ประสานงาน 3BB — สำรวจราคาและค่าใช้จ่ายย้าย Router', date:'02/06', s:'เสร็จแล้ว' },
+      { n:4,  name:'จัดตั้ง Server Room ใหม่ — ตึก Café FL2', date:'20/06', s:'เสร็จแล้ว' },
+      { n:5,  name:'เอกสารและจัดซื้ออุปกรณ์ในโปรเจค', date:'01/08', s:'กำลังดำเนินการ' },
+      { n:6,  name:'วางระบบ LAN ตึก Café FL2 (Account, Finance)', date:'11/08', s:'เสร็จแล้ว' },
+      { n:7,  name:'ขอเอกสาร และติดตั้ง Internet ห้องสปา', date:'17/08', s:'กำลังดำเนินการ' },
+      { n:8,  name:'ขอเอกสาร และติดตั้ง Internet บ้านสมุนไพร FL2', date:'17/08', s:'กำลังดำเนินการ' },
+      { n:9,  name:'ขอเอกสาร และติดตั้ง Internet New Server', date:'17/08', s:'กำลังดำเนินการ' },
+      { n:10, name:'วางระบบ LAN ตึก Café FL1 (SC, Assistance)', date:'18/08', s:'เสร็จแล้ว' },
+      { n:11, name:'วางระบบ Wifi บ้านกู๊ดเซิร์ฟ & ห้องประชุม', date:'21/08', s:'กำลังดำเนินการ' },
+      { n:12, name:'ย้ายอุปกรณ์ Server & Client ไปยังอาคารใหม่', date:'25/08', s:'รอเริ่ม' },
+      { n:13, name:'วาง LAN&Wifi ตึก Fitness FL1 (MKT, Graphic, Admin)', date:'25/08', s:'รอเริ่ม' },
+      { n:14, name:'วาง LAN&Wifi ตึก Fitness FL2 (HR, CEO)', date:'25/08', s:'รอเริ่ม' },
+      { n:15, name:'ติดตั้ง Network ตึก Fitness ครบทุกชั้น', date:'25/08', s:'รอเริ่ม' },
+      { n:16, name:'ทดสอบระบบ Network และ Server หลังย้ายอาคาร', date:'26/08', s:'รอเริ่ม' },
+      { n:17, name:'Handover & Sign-off — ปิดโปรเจค', date:'29/08', s:'รอเริ่ม' },
+    ]
+  },
+  {
+    id: 'portal',
+    name: 'Internal Company Portal',
+    ganttName: 'Company Portal (Web Home Page)',
+    icon: '🏠', color: '#0891B2', owner: 'บอล',
+    section: 'ITS บอล',
+    barL: 24.93, barW: 16.44, allDone: true,
+    ms: [
+      { n:1, name:'V1 — Requirements & Design', date:'01/04', s:'เสร็จแล้ว' },
+      { n:2, name:'V1 — Development', date:'08/04', s:'เสร็จแล้ว' },
+      { n:3, name:'V1 — UAT & Go Live', date:'21/04', s:'เสร็จแล้ว' },
+      { n:4, name:'V2 — Bug Fix & New Features', date:'08/05', s:'เสร็จแล้ว' },
+      { n:5, name:'V2 — Testing & Go Live', date:'15/05', s:'เสร็จแล้ว' },
+    ]
+  },
+  {
+    id: 'kpi-dash',
+    name: 'TCP KPI-ITS Dashboard',
+    ganttName: 'KPI-ITS Dashboard',
+    icon: '📊', color: '#DC2626', owner: 'บอล',
+    section: 'ITS บอล',
+    barL: 41.64, barW: 58.36, allDone: false,
+    ms: [
+      { n:1, name:'ออกแบบ Schema, โครงสร้างไฟล์ และ KPI Framework', date:'01/06', s:'เสร็จแล้ว' },
+      { n:2, name:'KPI-01: Infrastructure Reliability — PRTG', date:'10/06', s:'เสร็จแล้ว' },
+      { n:3, name:'KPI-02: Security & Endpoint Protection', date:'15/06', s:'เสร็จแล้ว' },
+      { n:4, name:'KPI-03: Data Protection & Recovery', date:'18/06', s:'เสร็จแล้ว' },
+      { n:5, name:'KPI-04: IT Support Ticket SLA', date:'01/07', s:'กำลังดำเนินการ' },
+      { n:6, name:'KPI-05: Purchasing & MA Renewal', date:'01/08', s:'รอเริ่ม' },
+      { n:7, name:'KPI-06: Assets Management', date:'01/09', s:'รอเริ่ม' },
+      { n:8, name:'Frontend Main Dashboard + Charts', date:'01/10', s:'รอเริ่ม' },
+      { n:9, name:'Deploy บน GitHub Pages', date:'01/12', s:'รอเริ่ม' },
+    ]
+  },
+  {
+    id: 'resource',
+    name: 'TCP IT Resource Tracker',
+    ganttName: 'IT Resource Tracker',
+    icon: '🗃️', color: '#4F46E5', owner: 'ฟาน',
+    section: 'IT Staff ฟาน',
+    barL: 58.36, barW: 41.64, allDone: false,
+    ms: [
+      { n:1, name:'วิเคราะห์ความต้องการและ Scope, List Item ทั้งหมด', date:'01/08', s:'รอเริ่ม' },
+      { n:2, name:'ออกแบบ Database และ UI', date:'—', s:'รอเริ่ม' },
+      { n:3, name:'พัฒนาระบบ', date:'—', s:'รอเริ่ม' },
+      { n:4, name:'ทดสอบและ UAT', date:'—', s:'รอเริ่ม' },
+      { n:5, name:'Go Live', date:'—', s:'รอเริ่ม' },
+    ]
+  },
+  {
+    id: 'ai-trans',
+    name: 'TCP AI Transformation',
+    ganttName: 'AI Transformation',
+    icon: '🤖', color: '#D97706', owner: 'บอล + ทีม Business',
+    section: 'โปรเจคร่วม',
+    barL: null, barW: null, allDone: false,
+    ms: []
+  },
+];
 
-  /* ── helpers ── */
-  function statusLabel(s) {
-    if (s === 'done')    return 'เสร็จแล้ว ✓';
-    if (s === 'active')  return 'กำลังดำเนินการ';
-    if (s === 'pending') return 'รอเริ่ม';
-    return s;
+const VLINES = [8.49, 16.16, 24.66, 32.88, 41.37, 49.59, 58.08, 66.58, 74.79, 83.29, 91.51];
+const TH_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
+// Dynamic date
+const now = new Date();
+const dateStr = now.getDate() + ' ' + TH_MONTHS[now.getMonth()] + ' ' + (now.getFullYear() + 543);
+document.getElementById('today-badge').textContent = 'ข้อมูล ณ ' + dateStr;
+document.getElementById('footer-date').textContent = dateStr;
+
+// Today % within current year
+function todayPct() {
+  const y = now.getFullYear();
+  const start = new Date(y, 0, 1);
+  const end   = new Date(y + 1, 0, 1);
+  return ((now - start) / (end - start)) * 100;
+}
+const TODAY_PCT = todayPct();
+
+// ---- RENDER GANTT ----
+const ganttEl = document.getElementById('gantt-rows');
+
+PROJECTS.forEach(function(p) {
+  const row = document.createElement('div');
+  row.className = 'gantt-row';
+
+  const nm = document.createElement('div');
+  nm.className = 'gantt-name';
+  nm.innerHTML = '<span class="gantt-name-icon">' + p.icon + '</span>' +
+                 '<span class="gantt-name-text">' + p.ganttName + '</span>';
+
+  const track = document.createElement('div');
+  track.className = 'gantt-track';
+
+  VLINES.forEach(function(pct) {
+    const vl = document.createElement('div');
+    vl.className = 'gantt-vline';
+    vl.style.left = pct + '%';
+    track.appendChild(vl);
+  });
+
+  const todayLine = document.createElement('div');
+  todayLine.className = 'gantt-today';
+  todayLine.style.left = TODAY_PCT + '%';
+  track.appendChild(todayLine);
+
+  if (p.barL !== null) {
+    const bar = document.createElement('div');
+    bar.className = 'gantt-bar' + (p.allDone ? ' gantt-bar-done' : '');
+    bar.style.left    = p.barL + '%';
+    bar.style.width   = p.barW + '%';
+    bar.style.background = p.color;
+    if (p.allDone) {
+      const tag = document.createElement('span');
+      tag.className = 'gantt-success-tag';
+      tag.textContent = '✓ Success';
+      bar.appendChild(tag);
+    }
+    track.appendChild(bar);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'gantt-tbd';
+    ph.textContent = 'TBD';
+    track.appendChild(ph);
   }
-  function statusClass(s) {
-    if (s === 'done')    return 'sb-done';
-    if (s === 'active')  return 'sb-active';
-    return 'sb-pending';
+
+  row.appendChild(nm);
+  row.appendChild(track);
+  ganttEl.appendChild(row);
+});
+
+// ---- RENDER PROJECT CARDS ----
+const cardsEl = document.getElementById('proj-cards');
+let lastSection = null;
+
+PROJECTS.forEach(function(p) {
+  if (p.section !== lastSection) {
+    lastSection = p.section;
+    const div = document.createElement('div');
+    div.className = 'section-group-label';
+    div.textContent = p.section;
+    cardsEl.appendChild(div);
   }
 
-  /* ── render single card ── */
-  function renderCard(p) {
-    const isDone    = p.status === 'done';
-    const isPending = p.status === 'pending';
+  const doneMs   = p.ms.filter(function(m){ return m.s === 'เสร็จแล้ว'; });
+  const activeMs = p.ms.filter(function(m){ return m.s !== 'เสร็จแล้ว'; });
+  const total     = p.ms.length;
+  const doneCount = doneMs.length;
+  const pct       = total > 0 ? Math.round(doneCount / total * 100) : 0;
 
-    const nextRowClass = isDone ? 'step-nxt-done' : 'step-nxt';
-    const nextIcon     = isDone ? 'ti-check'       : 'ti-arrow-right';
-    const nextLblClass = isDone ? 'done-lbl'        : 'next-lbl';
+  const card = document.createElement('div');
+  card.className = 'proj-card';
+  card.style.borderLeftColor = p.color;
 
-    const nextRowHTML = (!isDone && p.nextStep) ? `
-      <div class="step-row ${nextRowClass}">
-        <div class="step-label next-lbl ${nextLblClass}">
-          <i class="ti ${nextIcon}"></i>
-          ถัดไป
-          ${p.nextDate ? `<span class="nxt-date" style="background:${p.color}">${p.nextDate}</span>` : ''}
-        </div>
-        <div class="step-text">${p.nextStep}</div>
-      </div>` : isDone ? `
-      <div class="step-row ${nextRowClass}">
-        <div class="step-label done-lbl">
-          <i class="ti ti-check"></i>
-          ใช้งานต่อเนื่อง
-        </div>
-        <div class="step-text">${p.nextStep || 'ตั้งแต่ ' + p.targetDate + ' ถึงปัจจุบัน'}</div>
-      </div>` : '';
+  // Card header
+  const hdr = document.createElement('div');
+  hdr.className = 'proj-hdr';
+  hdr.style.borderLeftColor = p.color;
+  hdr.innerHTML =
+    '<div class="proj-dot" style="background:' + p.color + '"></div>' +
+    '<span class="proj-icon">' + p.icon + '</span>' +
+    '<span class="proj-name">' + p.name + '</span>' +
+    (total > 0
+      ? '<div class="proj-progress">' +
+          '<div class="prog-bar-wrap">' +
+            '<div class="prog-bar-fill" style="width:' + pct + '%;background:' + p.color + '"></div>' +
+          '</div>' +
+          '<span class="prog-text">' + doneCount + '/' + total + ' (' + pct + '%)</span>' +
+        '</div>'
+      : '') +
+    '<span class="proj-owner">' + p.owner + '</span>';
+  card.appendChild(hdr);
 
-    const footerValClass = isDone ? 'footer-val val-done' : 'footer-val';
-    const footerLabel    = isDone ? 'เสร็จสิ้นเมื่อ' : 'กำหนดแล้วเสร็จ';
+  // Milestone body
+  const body = document.createElement('div');
+  body.className = 'ms-group';
 
-    return `
-    <div class="proj-card" style="--cc:${p.color}">
-      <div class="card-top">
-        <div class="card-row1">
-          <div class="card-name">${p.name}</div>
-          <div class="sbadge ${statusClass(p.status)}">${statusLabel(p.status)}</div>
-        </div>
-        <div class="card-cat"><i class="ti ${p.icon}"></i>${p.category}</div>
-      </div>
+  if (p.ms.length === 0) {
+    const nm = document.createElement('div');
+    nm.className = 'no-ms';
+    nm.textContent = 'ยังไม่มี Milestone — อยู่ระหว่างวางแผนร่วมกับทีม Business';
+    body.appendChild(nm);
+  } else {
+    // Done group (collapsed)
+    if (doneMs.length > 0) {
+      const toggle = document.createElement('div');
+      toggle.className = 'done-toggle';
+      toggle.setAttribute('role', 'button');
+      toggle.innerHTML =
+        '<i class="ti ti-circle-check" aria-hidden="true" style="color:#16a34a;font-size:15px;flex-shrink:0"></i>' +
+        '<span class="done-toggle-text">เสร็จแล้ว ' + doneMs.length + ' ขั้นตอน — กดดูรายละเอียด</span>' +
+        '<i class="ti ti-chevron-down done-chevron" aria-hidden="true"></i>';
 
-      <div class="card-progress">
-        <div class="prog-row">
-          <div class="prog-pct">${p.progress}%</div>
-          <div class="prog-track">
-            <div class="prog-fill" style="width:${p.progress}%"></div>
-          </div>
-        </div>
-      </div>
+      const list = document.createElement('div');
+      list.className = 'done-ms-list';
 
-      <div class="card-steps">
-        <div class="step-row step-now">
-          <div class="step-label">
-            <i class="ti ${isDone ? 'ti-circle-check' : 'ti-point-filled'}"></i>
-            ${isDone ? 'ผลลัพธ์' : 'ขั้นตอนปัจจุบัน'}
-          </div>
-          <div class="step-text">${p.currentStep}</div>
-        </div>
-        ${nextRowHTML}
-      </div>
+      doneMs.forEach(function(m) {
+        const r = document.createElement('div');
+        r.className = 'ms-row done-row';
+        r.innerHTML =
+          '<span class="ms-num">' + m.n + '</span>' +
+          '<span class="ms-name done-name">' + m.name + '</span>' +
+          '<span class="ms-date">' + m.date + '</span>' +
+          '<span class="badge b-done">เสร็จแล้ว</span>';
+        list.appendChild(r);
+      });
 
-      <div class="card-footer">
-        <div class="footer-lbl"><i class="ti ti-calendar-check"></i>${footerLabel}</div>
-        <div>
-          <div class="${footerValClass}">${p.targetDate}</div>
-          <div class="footer-period">${p.period}</div>
-        </div>
-      </div>
-    </div>`;
+      toggle.addEventListener('click', function() {
+        const isOpen = list.classList.toggle('open');
+        toggle.querySelector('.done-chevron').classList.toggle('open', isOpen);
+      });
+
+      body.appendChild(toggle);
+      body.appendChild(list);
+    }
+
+    // Active + pending (always visible)
+    activeMs.forEach(function(m) {
+      const r = document.createElement('div');
+      r.className = 'ms-row';
+      const bc = m.s === 'กำลังดำเนินการ' ? 'b-active' : 'b-wait';
+      r.innerHTML =
+        '<span class="ms-num">' + m.n + '</span>' +
+        '<span class="ms-name">' + m.name + '</span>' +
+        '<span class="ms-date">' + m.date + '</span>' +
+        '<span class="badge ' + bc + '">' + m.s + '</span>';
+      body.appendChild(r);
+    });
+
+    // All done note
+    if (activeMs.length === 0) {
+      const note = document.createElement('div');
+      note.className = 'all-done-note';
+      note.textContent = '✓ เสร็จสมบูรณ์ทุกขั้นตอน';
+      body.appendChild(note);
+    }
   }
 
-  /* ── render owner section ── */
-  function renderOwnerSection(owner) {
-    const projects = PROJECTS.filter(p => p.owner === owner.key);
-    if (!projects.length) return '';
-
-    const cards = projects.map(renderCard).join('');
-
-    return `
-    <div class="owner-section">
-      <div class="owner-header">
-        <div class="owner-avatar ${owner.avatarClass}">${owner.nick}</div>
-        <div>
-          <div class="owner-name">${owner.name}</div>
-          <div class="owner-role">${owner.role}</div>
-        </div>
-        <div class="owner-count">${projects.length} โครงการ</div>
-      </div>
-      <div class="cards-grid">${cards}</div>
-    </div>`;
-  }
-
-  /* ── render summary stats ── */
-  function renderSummary() {
-    const total   = PROJECTS.length;
-    const done    = PROJECTS.filter(p => p.status === 'done').length;
-    const active  = PROJECTS.filter(p => p.status === 'active').length;
-    const pending = PROJECTS.filter(p => p.status === 'pending').length;
-
-    const avgProgress = Math.round(PROJECTS.reduce((s, p) => s + p.progress, 0) / total);
-
-    return `
-      <div class="sum-card">
-        <div class="sum-num">${total}</div><div class="sum-lbl">โครงการทั้งหมด</div>
-      </div>
-      <div class="sum-card s-done">
-        <div class="sum-num">${done}</div><div class="sum-lbl">เสร็จแล้ว</div>
-      </div>
-      <div class="sum-card s-active">
-        <div class="sum-num">${active}</div><div class="sum-lbl">กำลังดำเนินการ</div>
-      </div>
-      <div class="sum-card s-pending">
-        <div class="sum-num">${avgProgress}%</div><div class="sum-lbl">ภาพรวมความคืบหน้า</div>
-      </div>`;
-  }
-
-  /* ── init ── */
-  function init() {
-    /* header */
-    document.getElementById('hdr-recipient').textContent = 'รายงานสำหรับ ' + CONFIG.recipient;
-    document.getElementById('hdr-date').textContent = 'อัปเดต: ' + CONFIG.updated;
-    document.getElementById('hdr-total').textContent = PROJECTS.length;
-    document.getElementById('footer-date').textContent = CONFIG.updated;
-
-    /* summary */
-    document.getElementById('summary').innerHTML = renderSummary();
-
-    /* owner sections */
-    const html = OWNERS.map(renderOwnerSection).join('');
-    document.getElementById('projects').innerHTML = html;
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
-})();
+  card.appendChild(body);
+  cardsEl.appendChild(card);
+});
 </script>
-
 </body>
 </html>
