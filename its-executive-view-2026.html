@@ -45,13 +45,13 @@
       border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;
     }
     .gantt-months {
-      display: flex; margin-left: 185px; margin-bottom: 4px;
+      display: flex; margin-left: 210px; margin-bottom: 4px;
       border-bottom: 1px solid #f3f4f6; padding-bottom: 5px;
     }
     .gantt-month { flex: 1; font-size: 10px; color: #9ca3af; text-align: center; }
     .gantt-row { display: flex; align-items: center; height: 32px; }
     .gantt-name {
-      width: 185px; flex-shrink: 0; font-size: 11px; color: #4b5563;
+      width: 210px; flex-shrink: 0; font-size: 11px; color: #4b5563;
       padding-right: 10px; display: flex; align-items: center; gap: 5px;
       overflow: hidden; border-bottom: 1px solid #f3f4f6; height: 100%;
     }
@@ -81,10 +81,7 @@
     }
     .gantt-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #6b7280; }
     .legend-today-line { width: 2px; height: 14px; background: #cc1e1e; border-radius: 1px; }
-    .legend-bar-done {
-      width: 28px; height: 10px; border-radius: 3px;
-      background: #6b7280; opacity: 0.38;
-    }
+    .legend-bar-done { width: 28px; height: 10px; border-radius: 3px; background: #6b7280; opacity: 0.38; }
 
     /* Project cards */
     .section-group-label {
@@ -154,8 +151,8 @@
     }
 
     @media (max-width: 600px) {
-      .gantt-months { margin-left: 110px; }
-      .gantt-name { width: 110px; }
+      .gantt-months { margin-left: 120px; }
+      .gantt-name { width: 120px; }
       .ev-date { display: none; }
     }
     @media print { body { background: #fff; padding: 0; } }
@@ -261,13 +258,13 @@ const PROJECTS = [
       { n:1,  name:'ประสานงาน Supplier — รับใบเสนอราคาย้ายห้อง Server', date:'01/06', s:'เสร็จแล้ว' },
       { n:2,  name:'ประสานงาน AIS — สำรวจราคาและค่าใช้จ่ายย้าย Router', date:'02/06', s:'เสร็จแล้ว' },
       { n:3,  name:'ประสานงาน 3BB — สำรวจราคาและค่าใช้จ่ายย้าย Router', date:'02/06', s:'เสร็จแล้ว' },
-      { n:4,  name:'จัดตั้ง Server Room ใหม่ — ตึก Café FL2', date:'20/06', s:'เสร็จแล้ว' },
+      { n:4,  name:'จัดตั้ง Server Room ใหม่ — ตึก Cafe FL2', date:'20/06', s:'เสร็จแล้ว' },
       { n:5,  name:'เอกสารและจัดซื้ออุปกรณ์ในโปรเจค', date:'01/08', s:'กำลังดำเนินการ' },
-      { n:6,  name:'วางระบบ LAN ตึก Café FL2 (Account, Finance)', date:'11/08', s:'เสร็จแล้ว' },
+      { n:6,  name:'วางระบบ LAN ตึก Cafe FL2 (Account, Finance)', date:'11/08', s:'เสร็จแล้ว' },
       { n:7,  name:'ขอเอกสาร และติดตั้ง Internet ห้องสปา', date:'17/08', s:'กำลังดำเนินการ' },
       { n:8,  name:'ขอเอกสาร และติดตั้ง Internet บ้านสมุนไพร FL2', date:'17/08', s:'กำลังดำเนินการ' },
       { n:9,  name:'ขอเอกสาร และติดตั้ง Internet New Server', date:'17/08', s:'กำลังดำเนินการ' },
-      { n:10, name:'วางระบบ LAN ตึก Café FL1 (SC, Assistance)', date:'18/08', s:'เสร็จแล้ว' },
+      { n:10, name:'วางระบบ LAN ตึก Cafe FL1 (SC, Assistance)', date:'18/08', s:'เสร็จแล้ว' },
       { n:11, name:'วางระบบ Wifi บ้านกู๊ดเซิร์ฟ & ห้องประชุม', date:'21/08', s:'กำลังดำเนินการ' },
       { n:12, name:'ย้ายอุปกรณ์ Server & Client ไปยังอาคารใหม่', date:'25/08', s:'รอเริ่ม' },
       { n:13, name:'วาง LAN&Wifi ตึก Fitness FL1 (MKT, Graphic, Admin)', date:'25/08', s:'รอเริ่ม' },
@@ -315,7 +312,7 @@ const PROJECTS = [
     id: 'resource',
     name: 'TCP IT Resource Tracker',
     ganttName: 'IT Resource Tracker',
-    icon: '🗃️', color: '#4F46E5', owner: 'ฟาน',
+    icon: '📂', color: '#4F46E5', owner: 'ฟาน',
     section: 'IT Staff ฟาน',
     barL: 58.36, barW: 41.64, allDone: false,
     ms: [
@@ -330,7 +327,7 @@ const PROJECTS = [
     id: 'ai-trans',
     name: 'TCP AI Transformation',
     ganttName: 'AI Transformation',
-    icon: '🤖', color: '#D97706', owner: 'บอล + ทีม Business',
+    icon: '💡', color: '#D97706', owner: 'บอล + ทีม Business',
     section: 'โปรเจคร่วม',
     barL: null, barW: null, allDone: false,
     ms: []
@@ -340,63 +337,61 @@ const PROJECTS = [
 const VLINES = [8.49, 16.16, 24.66, 32.88, 41.37, 49.59, 58.08, 66.58, 74.79, 83.29, 91.51];
 const TH_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-// Dynamic date
 const now = new Date();
 const dateStr = now.getDate() + ' ' + TH_MONTHS[now.getMonth()] + ' ' + (now.getFullYear() + 543);
 document.getElementById('today-badge').textContent = 'ข้อมูล ณ ' + dateStr;
 document.getElementById('footer-date').textContent = dateStr;
 
-// Today % within current year
 function todayPct() {
-  const y = now.getFullYear();
-  const start = new Date(y, 0, 1);
-  const end   = new Date(y + 1, 0, 1);
+  var y = now.getFullYear();
+  var start = new Date(y, 0, 1);
+  var end   = new Date(y + 1, 0, 1);
   return ((now - start) / (end - start)) * 100;
 }
-const TODAY_PCT = todayPct();
+var TODAY_PCT = todayPct();
 
 // ---- RENDER GANTT ----
-const ganttEl = document.getElementById('gantt-rows');
+var ganttEl = document.getElementById('gantt-rows');
 
 PROJECTS.forEach(function(p) {
-  const row = document.createElement('div');
+  var row = document.createElement('div');
   row.className = 'gantt-row';
 
-  const nm = document.createElement('div');
+  var nm = document.createElement('div');
   nm.className = 'gantt-name';
   nm.innerHTML = '<span class="gantt-name-icon">' + p.icon + '</span>' +
                  '<span class="gantt-name-text">' + p.ganttName + '</span>';
 
-  const track = document.createElement('div');
+  var track = document.createElement('div');
   track.className = 'gantt-track';
 
   VLINES.forEach(function(pct) {
-    const vl = document.createElement('div');
+    var vl = document.createElement('div');
     vl.className = 'gantt-vline';
     vl.style.left = pct + '%';
     track.appendChild(vl);
   });
 
-  const todayLine = document.createElement('div');
+  var todayLine = document.createElement('div');
   todayLine.className = 'gantt-today';
   todayLine.style.left = TODAY_PCT + '%';
   track.appendChild(todayLine);
 
   if (p.barL !== null) {
-    const bar = document.createElement('div');
+    var bar = document.createElement('div');
     bar.className = 'gantt-bar' + (p.allDone ? ' gantt-bar-done' : '');
-    bar.style.left    = p.barL + '%';
-    bar.style.width   = p.barW + '%';
+    bar.style.left       = p.barL + '%';
+    bar.style.width      = p.barW + '%';
     bar.style.background = p.color;
     if (p.allDone) {
-      const tag = document.createElement('span');
+      var tag = document.createElement('span');
       tag.className = 'gantt-success-tag';
       tag.textContent = '✓ Success';
       bar.appendChild(tag);
     }
     track.appendChild(bar);
   } else {
-    const ph = document.createElement('div');
+    var ph = document.createElement('div');
     ph.className = 'gantt-tbd';
     ph.textContent = 'TBD';
     track.appendChild(ph);
@@ -408,30 +403,28 @@ PROJECTS.forEach(function(p) {
 });
 
 // ---- RENDER PROJECT CARDS ----
-const cardsEl = document.getElementById('proj-cards');
-let lastSection = null;
+var cardsEl = document.getElementById('proj-cards');
+var lastSection = null;
 
 PROJECTS.forEach(function(p) {
   if (p.section !== lastSection) {
     lastSection = p.section;
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.className = 'section-group-label';
     div.textContent = p.section;
     cardsEl.appendChild(div);
   }
 
-  const doneMs   = p.ms.filter(function(m){ return m.s === 'เสร็จแล้ว'; });
-  const activeMs = p.ms.filter(function(m){ return m.s !== 'เสร็จแล้ว'; });
-  const total     = p.ms.length;
-  const doneCount = doneMs.length;
-  const pct       = total > 0 ? Math.round(doneCount / total * 100) : 0;
+  var doneMs   = p.ms.filter(function(m){ return m.s === 'เสร็จแล้ว'; });
+  var activeMs = p.ms.filter(function(m){ return m.s !== 'เสร็จแล้ว'; });
+  var total     = p.ms.length;
+  var doneCount = doneMs.length;
+  var pct       = total > 0 ? Math.round(doneCount / total * 100) : 0;
 
-  const card = document.createElement('div');
+  var card = document.createElement('div');
   card.className = 'proj-card';
-  card.style.borderLeftColor = p.color;
 
-  // Card header
-  const hdr = document.createElement('div');
+  var hdr = document.createElement('div');
   hdr.className = 'proj-hdr';
   hdr.style.borderLeftColor = p.color;
   hdr.innerHTML =
@@ -449,19 +442,17 @@ PROJECTS.forEach(function(p) {
     '<span class="proj-owner">' + p.owner + '</span>';
   card.appendChild(hdr);
 
-  // Milestone body
-  const body = document.createElement('div');
+  var body = document.createElement('div');
   body.className = 'ms-group';
 
   if (p.ms.length === 0) {
-    const nm = document.createElement('div');
-    nm.className = 'no-ms';
-    nm.textContent = 'ยังไม่มี Milestone — อยู่ระหว่างวางแผนร่วมกับทีม Business';
-    body.appendChild(nm);
+    var nm2 = document.createElement('div');
+    nm2.className = 'no-ms';
+    nm2.textContent = 'ยังไม่มี Milestone — อยู่ระหว่างวางแผนร่วมกับทีม Business';
+    body.appendChild(nm2);
   } else {
-    // Done group (collapsed)
     if (doneMs.length > 0) {
-      const toggle = document.createElement('div');
+      var toggle = document.createElement('div');
       toggle.className = 'done-toggle';
       toggle.setAttribute('role', 'button');
       toggle.innerHTML =
@@ -469,11 +460,11 @@ PROJECTS.forEach(function(p) {
         '<span class="done-toggle-text">เสร็จแล้ว ' + doneMs.length + ' ขั้นตอน — กดดูรายละเอียด</span>' +
         '<i class="ti ti-chevron-down done-chevron" aria-hidden="true"></i>';
 
-      const list = document.createElement('div');
+      var list = document.createElement('div');
       list.className = 'done-ms-list';
 
       doneMs.forEach(function(m) {
-        const r = document.createElement('div');
+        var r = document.createElement('div');
         r.className = 'ms-row done-row';
         r.innerHTML =
           '<span class="ms-num">' + m.n + '</span>' +
@@ -484,7 +475,7 @@ PROJECTS.forEach(function(p) {
       });
 
       toggle.addEventListener('click', function() {
-        const isOpen = list.classList.toggle('open');
+        var isOpen = list.classList.toggle('open');
         toggle.querySelector('.done-chevron').classList.toggle('open', isOpen);
       });
 
@@ -492,11 +483,10 @@ PROJECTS.forEach(function(p) {
       body.appendChild(list);
     }
 
-    // Active + pending (always visible)
     activeMs.forEach(function(m) {
-      const r = document.createElement('div');
+      var r = document.createElement('div');
       r.className = 'ms-row';
-      const bc = m.s === 'กำลังดำเนินการ' ? 'b-active' : 'b-wait';
+      var bc = m.s === 'กำลังดำเนินการ' ? 'b-active' : 'b-wait';
       r.innerHTML =
         '<span class="ms-num">' + m.n + '</span>' +
         '<span class="ms-name">' + m.name + '</span>' +
@@ -505,9 +495,8 @@ PROJECTS.forEach(function(p) {
       body.appendChild(r);
     });
 
-    // All done note
     if (activeMs.length === 0) {
-      const note = document.createElement('div');
+      var note = document.createElement('div');
       note.className = 'all-done-note';
       note.textContent = '✓ เสร็จสมบูรณ์ทุกขั้นตอน';
       body.appendChild(note);
