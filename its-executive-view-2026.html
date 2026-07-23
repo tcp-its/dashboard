@@ -16,7 +16,6 @@
     }
     .container { max-width: 980px; margin: 0 auto; }
 
-    /* Header */
     .ev-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
     .ev-logo {
       width: 38px; height: 38px; border-radius: 50%;
@@ -32,14 +31,12 @@
       border-radius: 6px; padding: 4px 12px; white-space: nowrap;
     }
 
-    /* Section label */
     .section-label {
       font-size: 13px; font-weight: 600; color: #6b7280;
       margin-bottom: .75rem; display: flex; align-items: center; gap: 6px;
     }
     .section-label i { font-size: 15px; }
 
-    /* Gantt */
     .gantt-section {
       background: #fff; border: 1px solid #e5e7eb;
       border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;
@@ -83,7 +80,6 @@
     .legend-today-line { width: 2px; height: 14px; background: #cc1e1e; border-radius: 1px; }
     .legend-bar-done { width: 28px; height: 10px; border-radius: 3px; background: #6b7280; opacity: 0.38; }
 
-    /* Project cards */
     .section-group-label {
       font-size: 11px; font-weight: 600; color: #9ca3af;
       padding: 4px 10px; background: #f9fafb;
@@ -104,18 +100,16 @@
     .proj-name { font-size: 13px; font-weight: 700; color: #111; flex: 1; }
     .proj-progress { display: flex; align-items: center; gap: 6px; }
     .prog-bar-wrap { width: 60px; height: 4px; background: #f3f4f6; border-radius: 2px; overflow: hidden; }
-    .prog-bar-fill { height: 4px; border-radius: 2px; transition: width .3s; }
+    .prog-bar-fill { height: 4px; border-radius: 2px; }
     .prog-text { font-size: 11px; color: #9ca3af; white-space: nowrap; }
     .proj-owner { font-size: 11px; color: #9ca3af; margin-left: 6px; white-space: nowrap; }
 
-    /* Milestone group */
     .ms-group { border-top: 1px solid #f3f4f6; }
     .done-toggle {
       display: flex; align-items: center; gap: 8px;
       padding: .45rem 1rem; cursor: pointer;
       background: #f9fafb; font-size: 12px; color: #6b7280;
-      user-select: none; border-bottom: 1px solid #f3f4f6;
-      transition: background .15s;
+      user-select: none; border-bottom: 1px solid #f3f4f6; transition: background .15s;
     }
     .done-toggle:hover { background: #f3f4f6; }
     .done-toggle-text { flex: 1; }
@@ -126,8 +120,7 @@
 
     .ms-row {
       display: flex; align-items: center; gap: 8px;
-      padding: .48rem 1rem; border-bottom: 1px solid #f9fafb;
-      font-size: 12px;
+      padding: .48rem 1rem; border-bottom: 1px solid #f9fafb; font-size: 12px;
     }
     .ms-row:last-child { border-bottom: none; }
     .ms-row.done-row { background: #fafafa; }
@@ -141,14 +134,8 @@
     .b-done   { background: #dcfce7; color: #166534; }
 
     .no-ms { padding: .75rem 1rem; font-size: 12px; color: #9ca3af; font-style: italic; border-top: 1px solid #f3f4f6; }
-    .all-done-note {
-      padding: .5rem 1rem; font-size: 12px; color: #16a34a;
-      background: #f0fdf4; border-top: 1px solid #dcfce7;
-    }
-    .footer {
-      text-align: center; font-size: 11px; color: #d1d5db;
-      padding: 1.25rem 0 .5rem; margin-top: .5rem;
-    }
+    .all-done-note { padding: .5rem 1rem; font-size: 12px; color: #16a34a; background: #f0fdf4; border-top: 1px solid #dcfce7; }
+    .footer { text-align: center; font-size: 11px; color: #d1d5db; padding: 1.25rem 0 .5rem; margin-top: .5rem; }
 
     @media (max-width: 600px) {
       .gantt-months { margin-left: 120px; }
@@ -161,7 +148,6 @@
 <body>
 <div class="container">
 
-  <!-- Header -->
   <div class="ev-header">
     <div class="ev-logo">TCP</div>
     <div>
@@ -171,25 +157,18 @@
     <div class="ev-date" id="today-badge"></div>
   </div>
 
-  <!-- Gantt Chart -->
   <div class="gantt-section">
     <div class="section-label">
       <i class="ti ti-calendar" aria-hidden="true"></i>
       Project Timeline Overview — FY 2026
     </div>
     <div class="gantt-months">
-      <span class="gantt-month">ม.ค.</span>
-      <span class="gantt-month">ก.พ.</span>
-      <span class="gantt-month">มี.ค.</span>
-      <span class="gantt-month">เม.ย.</span>
-      <span class="gantt-month">พ.ค.</span>
-      <span class="gantt-month">มิ.ย.</span>
-      <span class="gantt-month">ก.ค.</span>
-      <span class="gantt-month">ส.ค.</span>
-      <span class="gantt-month">ก.ย.</span>
-      <span class="gantt-month">ต.ค.</span>
-      <span class="gantt-month">พ.ย.</span>
-      <span class="gantt-month">ธ.ค.</span>
+      <span class="gantt-month">ม.ค.</span><span class="gantt-month">ก.พ.</span>
+      <span class="gantt-month">มี.ค.</span><span class="gantt-month">เม.ย.</span>
+      <span class="gantt-month">พ.ค.</span><span class="gantt-month">มิ.ย.</span>
+      <span class="gantt-month">ก.ค.</span><span class="gantt-month">ส.ค.</span>
+      <span class="gantt-month">ก.ย.</span><span class="gantt-month">ต.ค.</span>
+      <span class="gantt-month">พ.ย.</span><span class="gantt-month">ธ.ค.</span>
     </div>
     <div id="gantt-rows"></div>
     <div class="gantt-legend">
@@ -198,7 +177,6 @@
     </div>
   </div>
 
-  <!-- Project Details -->
   <div class="section-label">
     <i class="ti ti-list-check" aria-hidden="true"></i>
     Project Details &amp; Milestones
@@ -211,12 +189,12 @@
 </div>
 
 <script>
-const PROJECTS = [
+var PROJECTS = [
   {
     id: 'clean-slate',
     name: 'Project Clean Slate',
     ganttName: 'Project Clean Slate',
-    icon: '🧹', color: '#059669', owner: 'บอล',
+    icon: '📁', color: '#059669', owner: 'บอล',
     section: 'ITS บอล',
     barL: 55.07, barW: 13.70, allDone: false,
     ms: [
@@ -334,11 +312,11 @@ const PROJECTS = [
   },
 ];
 
-const VLINES = [8.49, 16.16, 24.66, 32.88, 41.37, 49.59, 58.08, 66.58, 74.79, 83.29, 91.51];
-const TH_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+var VLINES = [8.49, 16.16, 24.66, 32.88, 41.37, 49.59, 58.08, 66.58, 74.79, 83.29, 91.51];
+var TH_MONTHS = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-const now = new Date();
-const dateStr = now.getDate() + ' ' + TH_MONTHS[now.getMonth()] + ' ' + (now.getFullYear() + 543);
+var now = new Date();
+var dateStr = now.getDate() + ' ' + TH_MONTHS[now.getMonth()] + ' ' + (now.getFullYear() + 543);
 document.getElementById('today-badge').textContent = 'ข้อมูล ณ ' + dateStr;
 document.getElementById('footer-date').textContent = dateStr;
 
@@ -350,9 +328,8 @@ function todayPct() {
 }
 var TODAY_PCT = todayPct();
 
-// ---- RENDER GANTT ----
+// ---- GANTT ----
 var ganttEl = document.getElementById('gantt-rows');
-
 PROJECTS.forEach(function(p) {
   var row = document.createElement('div');
   row.className = 'gantt-row';
@@ -402,7 +379,7 @@ PROJECTS.forEach(function(p) {
   ganttEl.appendChild(row);
 });
 
-// ---- RENDER PROJECT CARDS ----
+// ---- PROJECT CARDS ----
 var cardsEl = document.getElementById('proj-cards');
 var lastSection = null;
 
